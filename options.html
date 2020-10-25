@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebRequest Logging Options</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+<div class="option-container">
+    <div class="global-settings">
+        <h2 class="field-group-title">Глобальные настройки</h2>
+
+        <div class="field-group">
+            <label>
+                <span class="field-name">"Подленное" название Битрикса</span>
+                <input type="checkbox" name="format-bitrix-name" class="field-value">
+            </label>
+        </div>
+
+        <div class="field-group">
+            <label>
+                <span class="field-name">Подписи к комментариям</span>
+                <input type="checkbox" name="comment-format" class="field-value">
+            </label>
+        </div>
+    </div>
+
+    <div class="advanced-settings">
+        <h2 class="advanced-settings-title">
+            Расширенные настройки
+        </h2>
+
+        <div class="advanced-settings-notify">
+            Для удаления записи, оставьте поле домен пустым
+        </div>
+
+        <div class="advanced-settings-list"></div>
+
+        <button class="btn advanced-settings-add btn-add">Добавить</button>
+    </div>
+
+    <div class="comment-option">
+        <h3 class="comment-option-name">Подписи к комментариям</h3>
+        <div class="comment-option-list"></div>
+        <div class="comment-option-notify">
+            Пример: "Грустно вздохнув, #USER# сказал"
+        </div>
+        <button class="comment-option-add btn btn-add">Добавить поле</button>
+    </div>
+
+    <button class="btn btn-options-save">Сохранить настройки</button>
+    <div class="options-status"></div>
+
+    <div class="container-list hidden">
+        <details class="advanced-settings-item container" open>
+            <summary>Новая запись</summary>
+            <div class="field-group">
+                <div class="field-name">Домен</div>
+                <input class="field-value field" name="domain" placeholder="test.bitrix24.ru">
+            </div>
+
+            <div class="field-group">
+                <label>
+                    <span class="field-name">"Подленное" название Битрикса</span>
+                    <input type="checkbox" class="field-value" name="format-bitrix-name">
+                </label>
+            </div>
+
+            <div class="field-group">
+                <label>
+                    <span class="field-name">Подписи к комментариям</span>
+                    <input type="checkbox" class="field-value" name="comment-format">
+                </label>
+            </div>
+
+            <div class="field-group">
+                <div class="field-name">White-list</div>
+                <input class="field-value field" name="white-list" value="1" placeholder="1,2,3">
+                <div class="field-notify">ID пользователей через запятую</div>
+                <div class="field-notify">Значение по умолчанию лучше не удалять :)</div>
+            </div>
+        </details>
+        <input type="text" class="comment-option-field field container" name="comment-option" value="">
+    </div>
+
+</div>
+
+<div id="optionsArea" class="hidden">
+    Communication with background page:
+    <select id="useDirect">
+        <option value="0">Listen for storage changes</option>
+        <option value="1">Directly call background page functions</option>
+        <option value="2">Send a Message Updated storage.local</option>
+        <option value="3">Send a Message with all Data</option>
+    </select>
+    <div>Email:
+        <input id="email"></input>
+    </div>
+
+    <div class="field-group">
+        <label>
+            <span class="field-name">Имя</span>
+            <input type="text" class="field-value">
+        </label>
+    </div>
+</div>
+<div id="status" style="top:0px;display:inline-block;"></div>
+
+<!--<script src="../js/chrome/options.js"></script>-->
+<script src="assets/js/extension.js"></script>
+<script src="assets/js/chrome/storage.js"></script>
+<script src="options.js"></script>
+</body>
+</html>
