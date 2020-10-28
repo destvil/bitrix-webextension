@@ -4,8 +4,10 @@
         this.run = function () {
             let bitrix = new Ext.Bitrix();
 
-            bitrix.replaceFakeBitrixWord();
-            bitrix.bindEvents();
+            if(bitrix.isBitrix24Site()) {
+                console.log('is bitrix site');
+                bitrix.replaceFakeBitrixWord();
+            }
         }
     }
 

@@ -5,25 +5,38 @@
     namespace.Bitrix = function () {
         this.correctBitrixName = '6umpukc';
         this.fakeBitrixWordOptions = [
-            'битрикс',
-            'bitrix'
+            (new RegExp('битрикс', 'gi')),
+            (new RegExp('\\s(bitrix)|(bitrix)\\s', 'gi')),
+            (new RegExp('\\s(bitrix24)|(bitrix24)\\s', 'gi')),
         ];
 
+        this.isBitrix24Site = function () {
+            let bitrix24Node = document.querySelector('html.bx-core');
+            return !!bitrix24Node;
+        }
+
         this.replaceFakeBitrixWord = function () {
-            document.body.querySelectorAll('*:not(script)').forEach((el) => {
-                this.fakeBitrixWordOptions.forEach((bitrixName) => {
-                    let regex = new RegExp(bitrixName, 'gi');
-                    el.innerHTML = el.innerHTML.replaceAll(regex, this.correctBitrixName)
-                })
-            });
-        }
+            try {
+                document.body.querySelectorAll('*:not(script)').forEach((el) => {
 
-        this.bindEvents = function () {
-            let news = document.body.querySelector('.feed-new-message-informer-place');
-            news.addEventListener('click', (e) => this.clickHandler);
-        }
+                    let html = el.innerHTML;
+                    this.fakeBitrixWordOptions.forEach((regex) => {
 
-        this.clickHandler = function (event) {
+                        let match = html.match(regex);
+                        if (!match) {
+                            return true;
+                        }
+
+                        match.forEach((matches) => {
+                            html = html.replace(matches.trim(), this.correctBitrixName);
+                        });
+                    });
+                    el.innerHTML = html;
+
+                });
+            } catch (error) {
+                console.warn(error.message);
+            }
         }
     }
 

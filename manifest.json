@@ -38,11 +38,12 @@
 
   "content_scripts": [{
       "matches": [
-        "*://*.bitrix24.ru/*"
+        "*://*/*"
       ],
       "js": [
-        "js/extension.js",
-        "js/bitrix.js"
+        "assets/js/extension.js",
+        "assets/js/bitrix.js",
+        "script.js"
       ]
   }],
 
