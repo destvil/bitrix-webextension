@@ -43,12 +43,15 @@
         };
 
         this.modifyNotificationSound = function (volume) {
-            // TODO: Move volume to options page as slider, fetch volume value from storage.
-            injector.injectJs(`BX.ready(BX.addCustomEvent('OnImInit', function (im) {
-                im.audio.newMessage1.volume = ${volume};
-                im.audio.newMessage2.volume = ${volume};
-                im.audio.send.volume = ${volume};
-            }));`);
+            injector.injectFunction(this.injectSoundModification, {volume: volume});
         };
+
+        this.injectSoundModification = function (volume) {
+            BX.ready(BX.addCustomEvent('OnImInit', function (im) {
+                im.audio.newMessage1.volume = volume;
+                im.audio.newMessage2.volume = volume;
+                im.audio.send.volume = volume;
+            }));
+        }
     };
 })();
