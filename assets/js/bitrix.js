@@ -13,7 +13,7 @@
         this.isBitrix24Site = function () {
             let bitrix24Node = document.querySelector('html.bx-core');
             return !!bitrix24Node;
-        }
+        };
 
         this.replaceFakeBitrixWord = function () {
             try {
@@ -40,7 +40,15 @@
             } catch (error) {
                 console.warn(error.message);
             }
-        }
-    }
+        };
 
+        this.modifyNotificationSound = function (volume) {
+            // TODO: Move volume to options page as slider, fetch volume value from storage.
+            injector.injectJs(`BX.ready(BX.addCustomEvent('OnImInit', function (im) {
+                im.audio.newMessage1.volume = ${volume};
+                im.audio.newMessage2.volume = ${volume};
+                im.audio.send.volume = ${volume};
+            }));`);
+        };
+    };
 })();

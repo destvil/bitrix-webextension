@@ -3,10 +3,6 @@
   "name": "Smile Bitrix24",
   "version": "1.0",
   "description": "Добавьте изюминку в дизайн корпоративных порталов Битрикс24",
-  "icons": {
-    "48": "assets/img/icon.png",
-    "96": "assets/img/icon-x2.png"
-  },
 
   "applications": {
     "gecko": {
@@ -17,10 +13,6 @@
 
   "browser_action": {
     "browser_style": true,
-    "default_icon": {
-      "48": "assets/img/icon.png",
-      "96": "assets/img/icon-x2.png"
-    },
     "default_title": "Bitrix Settings"
   },
 
@@ -43,11 +35,13 @@
       "js": [
         "assets/js/extension.js",
         "assets/js/bitrix.js",
+        "assets/js/injector.js",
         "script.js"
       ]
   }],
 
   "permissions": [
-    "storage"
+    "storage",
+    "activeTab"
   ]
 }

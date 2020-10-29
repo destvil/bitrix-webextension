@@ -5,11 +5,12 @@
             let bitrix = new Ext.Bitrix();
 
             if(bitrix.isBitrix24Site()) {
-                console.log('is bitrix site');
                 bitrix.replaceFakeBitrixWord();
             }
+
+            bitrix.modifyNotificationSound(0.1);
         }
-    }
+    };
 
     Ext.namespace = function (namespace) {
         let path = window;
@@ -20,10 +21,10 @@
                 path[part] = {};
             }
             path = path[part];
-        })
+        });
 
         return path;
-    }
+    };
 
     window.Ext = Ext;
 
