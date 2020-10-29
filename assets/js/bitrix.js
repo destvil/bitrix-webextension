@@ -18,6 +18,9 @@
         this.replaceFakeBitrixWord = function () {
             try {
                 document.body.querySelectorAll('*:not(script)').forEach((el) => {
+                    if (el.tagName === 'script') {
+                        return true;
+                    }
 
                     let html = el.innerHTML;
                     this.fakeBitrixWordOptions.forEach((regex) => {

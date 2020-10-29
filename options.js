@@ -1,10 +1,15 @@
 let Options = function () {
 
+    this.fieldNotifySelector = '.field-notify';
+
     this.globalSettingsSelector = '.global-settings';
     this.globalSettingsNames = [
         'format-bitrix-name',
-        'comment-format'
+        'comment-format',
+        'nofity-volume'
     ];
+
+    this.globalVolumeSelector = '.field-value.notify-value';
 
     this.advancedSettingsListSelector = '.advanced-settings-list';
     this.advancedSettingsItemSelector = '.advanced-settings-item';
@@ -43,12 +48,16 @@ let Options = function () {
         if (saveOptionBtn) {
             saveOptionBtn.addEventListener('click', () => this.saveOptionsHandle());
         }
+
+        let volumeSelector = document.querySelector(this.globalVolumeSelector);
+        if (volumeSelector) {
+            volumeSelector.addEventListener('change', (e) => this.showValueVolume(e));
+        }
     }
 
     this.loadSettings = function () {
         let storage = new Ext.Chrome.Storage();
         storage.getOptions(null, (settings) => {
-            console.log(settings);
             if (settings.hasOwnProperty('global')) {
                 this.loadGlobalSettings(settings['global']);
             }
@@ -88,6 +97,13 @@ let Options = function () {
                 field.checked = data[key];
             } else if (field.type === 'text') {
                 field.value = data[key];
+            } else if (field.type === 'range') {
+                field.value = data[key];
+
+                let notifyNode = field.parentNode.querySelector(this.fieldNotifySelector)
+                if (notifyNode) {
+                    notifyNode.textContent = field.value;
+                }
             } else {
                 continue;
             }
@@ -112,7 +128,6 @@ let Options = function () {
 
         for (let domain in data) {
 
-            console.log(data[domain]);
             if (!data.hasOwnProperty(domain)) {
                 continue;
             }
@@ -374,6 +389,18 @@ let Options = function () {
                 optionStatusNode.classList.remove(...additionClasses);
             }
         }, 5000);
+    }
+
+    this.showValueVolume = function (event) {
+        let target = event.target;
+        let fieldContainer = target.parentNode;
+
+        let notifyNode = fieldContainer.querySelector(this.fieldNotifySelector);
+        if (!notifyNode) {
+            return;
+        }
+
+        notifyNode.textContent = target.value;
     }
 }
 

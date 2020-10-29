@@ -53,6 +53,14 @@ input, select, textarea {
     display: none;
 }
 
+.d-flex {
+    display: flex;
+}
+
+.align-center {
+    align-items: center;
+}
+
 .fxrow {
     display: flex;
     flex-direction: row;
